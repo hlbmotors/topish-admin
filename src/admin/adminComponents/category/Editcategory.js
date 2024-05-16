@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { toast } from "react-toastify";
-import Img from "../../../backgroundImages/flags.jpg";
 import { Link, useLocation } from "react-router-dom";
 function Editcategory() {
   const { setIsLoading } = useContext(AuthContext);

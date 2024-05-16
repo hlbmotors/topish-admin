@@ -1,6 +1,7 @@
 import axios from "../../api/api";
 import React, { useEffect, useState } from "react";
 import { useGetEmployers, useGetJobSeekers, useGetUsers } from "../../services/admin/useUsers";
+import ChartTwo from "../../components/charts/ChartTwo";
 
 function Dashboard() {
   const [mainCount, setMainCount] = useState({});
@@ -124,6 +125,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
+        <ChartTwo/>
       </div>
     </div>
   );

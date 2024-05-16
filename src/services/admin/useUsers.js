@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import axios from "../../api/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -28,7 +29,9 @@ export const useBlockUser = () => {
       await axios.post(`/admin/blockUser/${userId}`);
     },
     onSuccess: () => {
-      // Userni bloklash muvaffaqiyatli bo'lganda ma'lumotlarni qayta yuklash
+      toast.success("User bloklandi!", {
+        position: toast.POSITION.TOP_RIGHT
+      });
       queryClient.invalidateQueries("users-get");
     },
   });
@@ -41,8 +44,9 @@ export const useUnblockUser = () => {
       await axios.post(`/admin/unBlockUser/${userId}`);
     },
     onSuccess: () => {
-      // Userni blokdan chiqarish muvaffaqiyatli bo'lganda ma'lumotlarni qayta yuklash
-      queryClient.invalidateQueries("users-get");
+      toast.success("User blokdan chiqarildi!", {
+        position: toast.POSITION.TOP_RIGHT
+      });      queryClient.invalidateQueries("users-get");
     },
   });
 };

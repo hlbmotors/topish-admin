@@ -46,11 +46,14 @@ const TableSampleClients = () => {
   };
 
   return (
-    <section className="bg-gray-50 p-3 sm:p-5">
-      <div className="mx-auto max-w-screen-xl px-2 lg:px-2">
+    <section className="p-3 sm:p-5">
+      <div className="mx-auto max-w-screen-lg px-2 lg:px-2">
+        <h3 className="text-white dark:text-gray-800 mb-3 text-2xl font-bold">
+          Users
+        </h3>
         <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-            <div className="w-full lg:w-1/2">
+          <div className="flex flex-col lg:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div className="w-full">
               <form className="flex items-center">
                 <label htmlFor="simple-search" className="sr-only">
                   Search
@@ -81,7 +84,7 @@ const TableSampleClients = () => {
                 </div>
               </form>
             </div>
-            <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+            <div className="w-full lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
               <button
                 type="button"
                 className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
@@ -125,7 +128,10 @@ const TableSampleClients = () => {
               <tbody>
                 {data?.data?.length
                   ? data?.data?.map((item) => (
-                      <tr className="border-b dark:border-gray-700">
+                      <tr
+                        key={item._id}
+                        className="border-b dark:border-gray-700"
+                      >
                         <th
                           scope="row"
                           className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
