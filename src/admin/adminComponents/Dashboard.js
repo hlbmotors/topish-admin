@@ -125,7 +125,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <ChartTwo/>
+        {/* <ChartTwo/> */}
       </div>
     </div>
   );
