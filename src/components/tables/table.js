@@ -47,7 +47,7 @@ const TableSampleClients = () => {
 
   return (
     <section className="p-3 sm:p-5">
-      <div className="mx-auto max-w-screen-lg px-2 lg:px-2">
+      <div className="mx-auto px-2 lg:px-2">
         <h3 className="text-white dark:text-gray-800 mb-3 text-2xl font-bold">
           Users
         </h3>

@@ -1,17 +1,13 @@
-import { useContext, useState } from "react";
-import { useLogin } from "../hooks/useLogin";
-import { AuthContext } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { allActions } from "../store/root-action";
-import { useActions } from "../hooks/useActions";
-import { ButtonSpinner } from "../components/buttonSpinner/buttonSpinner";
+import {  useState } from "react";
+import { Link } from "react-router-dom";
+import {  useSelector } from "react-redux";
+import { useActions } from "../../hooks/useActions";
+import { ButtonSpinner } from "../../components/buttonSpinner/buttonSpinner";
 
 const SignIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const { login, error } = useLogin();
-  // const { isLoading, setIsLoading } = useContext(AuthContext);
+
 
   const [visible, setVisible] = useState(false);
 
@@ -28,9 +24,7 @@ const SignIn = () => {
       mobileToken: "fcmToken",
     });
 
-    // setIsLoading(true);
-    // await login(username, password);
-    // setIsLoading(false);
+
   };
   return (
     <section className=" ">

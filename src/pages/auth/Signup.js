@@ -1,7 +1,6 @@
 import { useContext, useState } from "react"
-import { useSignup } from "../hooks/useSignup"
-import { AuthContext } from "../context/AuthContext"
-import { useAuthContext } from "../hooks/useAuthContext"
+import { useSignup } from "../../hooks/useSignup"
+import { AuthContext } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 import { toast } from 'react-toastify';
