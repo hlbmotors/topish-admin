@@ -3,7 +3,6 @@ import axios from "../api/api";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 // import FlagImage from "../backgroundImages/uz-flag.jpg"
-import './Change_scroll.css'
 
 
 

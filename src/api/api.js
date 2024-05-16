@@ -1,10 +1,9 @@
 import axios from "axios";
-
-const Api = axios.create({
-    // baseURL: 'http://localhost:5001/'
-    // baseURL: 'https://testop-backned.onrender.com'
-    baseURL: 'https://binaries.uz/api/v1'
+axios.defaults.baseURL = "https://binaries.uz/api/v1";
+export const BASE_URL = "https://binaries.uz/api/v1";
+axios.interceptors.request.use((config) => {
+  config.withCredentials = true;
+  return config;
 });
 
-export default Api
-
+export default axios;

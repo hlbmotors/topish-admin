@@ -9,7 +9,6 @@ export const useLogin = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { isLoading, setIsLoading } = useContext(AuthContext);
-
   const { dispatch } = useAuthContext();
 
   const login = async (username, password) => {
@@ -17,10 +16,9 @@ export const useLogin = () => {
     setError(null);
 
     try {
-      const response = await axios.post("/auth/sign-in", {
-        phoneNumber: username,
-        password: password,
-        mobileToken: "fcmToken",
+      const response = await axios.post("/auth/login", {
+        username,
+        password,
       });
       console.log(username);
       console.log(password);
