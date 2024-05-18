@@ -2,7 +2,7 @@ import {  useState } from "react";
 import { Link } from "react-router-dom";
 import {  useSelector } from "react-redux";
 import { useActions } from "../../hooks/useActions";
-import { ButtonSpinner } from "../../components/buttonSpinner/buttonSpinner";
+import { ButtonSpinner } from "../../components/buttonSpinner/ButtonSpinner";
 
 const SignIn = () => {
   const [username, setUsername] = useState("");

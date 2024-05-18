@@ -1,5 +1,5 @@
 import React from "react";
-import TableSampleClients from "../../../components/tables/Table";
+import TableSampleClients from "../../../components/tables/UserTable";
 function Createcategory() {
   return (
     <div className="lg:ml-64">

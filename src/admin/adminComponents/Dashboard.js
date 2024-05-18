@@ -1,7 +1,7 @@
 import axios from "../../api/api";
 import React, { useEffect, useState } from "react";
-import { useGetEmployers, useGetJobSeekers, useGetUsers } from "../../services/admin/useUsers";
-// import ChartTwo from './../../components/charts/ChartTwo';
+import { useGetCompanies, useGetEmployers, useGetJobSeekers, useGetJobs, useGetQuickJobs, useGetUsers } from "../../services/admin/useUsers";
+import ChartTwo from './../../components/charts/ChartTwo';
 
 function Dashboard() {
   const [mainCount, setMainCount] = useState({});
@@ -26,6 +26,9 @@ function Dashboard() {
   const users = useGetUsers();
   const jobseeker = useGetJobSeekers();
   const employer = useGetEmployers()
+  const jobs = useGetJobs()
+  const quickjobs = useGetQuickJobs()
+  const company = useGetCompanies()
 
   return (
     <div className="p-4 lg:ml-64">
@@ -124,8 +127,101 @@ function Dashboard() {
               </div>
             </div>
           </div>
+
+          {/* jobs */}
+          <div className="flex items-center justify-start p-4 rounded-xl bg-gray-50  dark:bg-gray-800">
+            <div className="flex items-center gap-4">
+              <div class="flex h-12.5 w-12.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                <svg
+                  className="stroke-primary dark:stroke-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#000000"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="9 11 12 14 22 4"></polyline>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+              </div>
+              <div className="flex flex-col gap-2">
+                <h4 class="text-title-md font-bold text-black dark:text-white">
+                  {jobs.data?.totalCount} ta
+                </h4>
+                <span class="text-sm font-medium text-black dark:text-white">
+                  Ishlar  
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* companies */}
+          <div className="flex items-center justify-start p-4 rounded-xl bg-gray-50  dark:bg-gray-800">
+            <div className="flex items-center gap-4">
+              <div class="flex h-12.5 w-12.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                <svg
+                  className="stroke-primary dark:stroke-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#000000"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="9 11 12 14 22 4"></polyline>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+              </div>
+              <div className="flex flex-col gap-2">
+                <h4 class="text-title-md font-bold text-black dark:text-white">
+                  {company.data?.totalCount} ta
+                </h4>
+                <span class="text-sm font-medium text-black dark:text-white">
+                  Korxonalar  
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* quickjobs */}
+          <div className="flex items-center justify-start p-4 rounded-xl bg-gray-50  dark:bg-gray-800">
+            <div className="flex items-center gap-4">
+              <div class="flex h-12.5 w-12.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                <svg
+                  className="stroke-primary dark:stroke-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#000000"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="9 11 12 14 22 4"></polyline>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+              </div>
+              <div className="flex flex-col gap-2">
+                <h4 class="text-title-md font-bold text-black dark:text-white">
+                  {quickjobs.data?.totalCount} ta
+                </h4>
+                <span class="text-sm font-medium text-black dark:text-white">
+                   Tezkor ishlar  
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-        {/* <ChartTwo/> */}
+        <ChartTwo/>
       </div>
     </div>
   );

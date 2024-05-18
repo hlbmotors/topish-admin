@@ -18,7 +18,9 @@ module.exports = {
     extend: {
       colors: {
        
-       
+       "herobg":"#F8F8FD",
+       "hero-title":"#26A4FF",
+       "hero-decs":"#515B6F",
         'boxdark-2': '#1A222C',
         strokedark: '#2E3A47',
         'form-strokedark': '#3d4d60',

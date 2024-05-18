@@ -3,15 +3,13 @@ import axios from "../../api/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useGetUsers = (page, limit) => {
-  console.log(page, 'query');
+  console.log(page, "query");
   return useQuery({
     queryKey: ["users-get"],
     queryFn: async () =>
       await axios
         .get(
-          `/admin/getUsersForAdmin/?page=${page}&limit=${
-            limit ? limit : 10
-          }`
+          `/admin/getUsersForAdmin/?page=${page}&limit=${limit ? limit : 10}`
         )
         .then((res) => {
           return res.data;
@@ -30,7 +28,7 @@ export const useBlockUser = () => {
     },
     onSuccess: () => {
       toast.success("User bloklandi!", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
       queryClient.invalidateQueries("users-get");
     },
@@ -45,8 +43,9 @@ export const useUnblockUser = () => {
     },
     onSuccess: () => {
       toast.success("User blokdan chiqarildi!", {
-        position: toast.POSITION.TOP_RIGHT
-      });      queryClient.invalidateQueries("users-get");
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      queryClient.invalidateQueries("users-get");
     },
   });
 };
@@ -71,6 +70,67 @@ export const useGetEmployers = () => {
     queryFn: async () =>
       await axios
         .get(`admin/getEmployersForAdmin`)
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        }),
+  });
+};
+
+export const useGetJobs = () => {
+  return useQuery({
+    queryKey: ["jobs-get"],
+    queryFn: async () =>
+      await axios
+        .get(`admin/getJobsForAdmin`)
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        }),
+  });
+};
+export const useGetQuickJobs = () => {
+  return useQuery({
+    queryKey: ["quickjobs-get"],
+    queryFn: async () =>
+      await axios
+        .get(`admin/getQuickjobsForAdmin`)
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        }),
+  });
+};
+export const useGetCompanies = () => {
+  return useQuery({
+    queryKey: ["company-get"],
+    queryFn: async () =>
+      await axios
+        .get(`admin/getOfficesForAdmin`)
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        }),
+  });
+};
+
+export const useGetCompany = (page, limit) => {
+  console.log(page, "query");
+  return useQuery({
+    queryKey: ["office-get"],
+    queryFn: async () =>
+      await axios
+        .get(
+          `/admin/getOfficesForAdmin/?page=${page}&limit=${limit ? limit : 10}`
+        )
         .then((res) => {
           return res.data;
         })

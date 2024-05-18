@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutPage } from "../../layouts/page";
 import { Route, Routes } from "react-router-dom";
-import { Home } from "../home/home";
+import { Home } from './../home/Home';
 
 export const Public = () => {
   return (
