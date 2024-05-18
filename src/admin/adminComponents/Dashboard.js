@@ -1,7 +1,7 @@
 import axios from "../../api/api";
 import React, { useEffect, useState } from "react";
 import { useGetCompanies, useGetEmployers, useGetJobSeekers, useGetJobs, useGetQuickJobs, useGetUsers } from "../../services/admin/useUsers";
-import ChartTwo from "../../components/charts/ChartTwo";
+// import ChartTwo from "../../components/charts/ChartTwo";
 
 function Dashboard() {
   const [mainCount, setMainCount] = useState({});
@@ -221,7 +221,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <ChartTwo/>
+        {/* <ChartTwo/> */}
       </div>
     </div>
   );
