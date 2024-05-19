@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import {
   useBlockUser,
@@ -10,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query"; // queryClient bilan ish
 const TableSampleClients = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   const { data, isLoading } = useGetUsers(currentPage, 10);
   const blockUserMutation = useBlockUser();
@@ -45,6 +45,14 @@ const TableSampleClients = () => {
     }
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredData = data?.data?.filter((item) =>
+    item.jobSeeker?.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <section className="p-3 sm:p-5">
       <div className="mx-auto px-2 lg:px-2">
@@ -79,7 +87,8 @@ const TableSampleClients = () => {
                     id="simple-search"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Search"
-                    required
+                    value={searchQuery} 
+                    onChange={handleSearchChange} 
                   />
                 </div>
               </form>
@@ -99,7 +108,7 @@ const TableSampleClients = () => {
                   <path
                     clipRule="evenodd"
                     fillRule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a 1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                   />
                 </svg>
                 Add User
@@ -119,15 +128,14 @@ const TableSampleClients = () => {
                   <th scope="col" className="px-4 py-3">
                     Phone
                   </th>
-
                   <th scope="col" className="px-4 py-3">
                     <span className="sr-only">Actions</span>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {data?.data?.length
-                  ? data?.data?.map((item) => (
+                {filteredData?.length
+                  ? filteredData.map((item) => (
                       <tr
                         key={item._id}
                         className="border-b dark:border-gray-700"
@@ -143,7 +151,6 @@ const TableSampleClients = () => {
                           {item?.jobSeeker?.gender}
                         </td>
                         <td className="px-4 py-3">{item?.phoneNumber}</td>
-
                         <td className="px-4 py-3 flex items-center justify-end">
                           <button
                             onClick={() =>

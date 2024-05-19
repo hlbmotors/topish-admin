@@ -139,3 +139,23 @@ export const useGetCompany = (page, limit) => {
         }),
   });
 };
+
+export const useCreateCompany = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (newProduct) => {
+      return await axios.post('/offices', newProduct);
+    },
+    onSuccess: () => {
+      toast.success("Ofis muvaffaqqiyatli qo'shildi!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      queryClient.invalidateQueries("office-post"); // Invalidate any relevant queries
+    },
+    onError: (error) => {
+      toast.error(`Error: ${error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  });
+};

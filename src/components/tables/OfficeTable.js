@@ -1,13 +1,14 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { useGetCompany } from "../../services/admin/useUsers";
 import { useQueryClient } from "@tanstack/react-query"; // queryClient bilan ishlash uchun
+import AddOfficeModal from "./../modals/AddOffice";
 
 const TableSampleOffice = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
-  const { data } = useGetCompany(currentPage, 10);
+  const { data } = useGetCompany(currentPage, limit);
 
   const paginationSetting = data?.pagination;
   const totalPages = paginationSetting?.totalPages;
@@ -25,15 +26,28 @@ const TableSampleOffice = () => {
     queryClient.invalidateQueries(["office-get", currentPage]);
   };
 
-
   useEffect(() => {
     setLimit(paginationSetting?.limit);
     reloadUsers();
   }, [currentPage]);
 
+  const [open, setOpen] = useState(false);
+  const handleOpenModal = () => {
+    setOpen(!open);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredData = data?.data?.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <section className="p-3 sm:p-5">
+      <AddOfficeModal open={open} />
+
       <div className="mx-auto px-2 lg:px-2">
         <h3 className="text-white dark:text-gray-800 mb-3 text-2xl font-bold">
           Office
@@ -66,13 +80,15 @@ const TableSampleOffice = () => {
                     id="simple-search"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Search"
-                    required
+                    value={searchQuery} 
+                    onChange={handleSearchChange} 
                   />
                 </div>
               </form>
             </div>
             <div className="w-full lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
               <button
+                onClick={handleOpenModal}
                 type="button"
                 className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
               >
@@ -116,8 +132,8 @@ const TableSampleOffice = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.data?.length
-                  ? data?.data?.map((item) => (
+                {filteredData?.length
+                  ? filteredData.map((item) => (
                       <tr
                         key={item._id}
                         className="border-b dark:border-gray-700"
@@ -223,6 +239,7 @@ const TableSampleOffice = () => {
           </nav>
         </div>
       </div>
+      
     </section>
   );
 };

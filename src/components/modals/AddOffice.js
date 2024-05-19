@@ -1,62 +1,73 @@
-import React, { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import axios from '../../api/api';
-import { useCreateProduct } from './path-to-your-hooks-file'; // Adjust the import path
+import React, { useState, useEffect } from 'react';
+import { useCreateCompany } from '../../services/admin/useUsers';
 
-const ProductModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const AddOfficeModal = ({ open }) => {
+  const [isOpen, setIsOpen] = useState(open);
   const [formData, setFormData] = useState({
-    name: '',
-    brand: '',
+    title: '',
+    description: '',
+    location: '',
+    officeType: '',
+    phoneNumber: '',
     price: '',
-    category: '',
-    description: ''
+    officeImages: null // Set to null initially
   });
+
+  useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
-  const createProductMutation = useCreateProduct();
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      officeImages: e.target.files
+    });
+  };
+
+  const createProductMutation = useCreateCompany();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createProductMutation.mutate(formData);
+    const data = new FormData();
+    for (let key in formData) {
+      if (key === 'officeImages') {
+        if (formData[key]) {
+          Array.from(formData[key]).forEach(file => data.append(key, file));
+        }
+      } else {
+        data.append(key, formData[key]);
+      }
+    }
+    createProductMutation.mutate(data);
     setIsOpen(false);
   };
 
   return (
     <div>
-      <div className="flex justify-center m-5">
-        <button
-          id="defaultModalButton"
-          onClick={toggleModal}
-          className="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-          type="button"
-        >
-          Create product
-        </button>
-      </div>
       {isOpen && (
         <div
           id="defaultModal"
           tabIndex={-1}
           aria-hidden="true"
-          className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
+          className="fixed inset-0 z-50 flex justify-center items-center overflow-y-auto overflow-x-hidden"
         >
           <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
             <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
               <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Add Product
+                  Add Office
                 </h3>
                 <button
                   type="button"
@@ -72,7 +83,7 @@ const ProductModal = () => {
                   >
                     <path
                       fillRule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                       clipRule="evenodd"
                     />
                   </svg>
@@ -83,38 +94,91 @@ const ProductModal = () => {
                 <div className="grid gap-4 mb-4 sm:grid-cols-2">
                   <div>
                     <label
-                      htmlFor="name"
+                      htmlFor="title"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Name
+                      Title
                     </label>
                     <input
                       type="text"
-                      name="name"
-                      id="name"
+                      name="title"
+                      id="title"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Type product name"
-                      value={formData.name}
+                      placeholder="Office title"
+                      value={formData.title}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="">
+                    <label
+                      htmlFor="description"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      id="description"
+                      name="description"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="Office description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      required
+                    ></textarea>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="location"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Location
+                    </label>
+                    <input
+                      type="text"
+                      name="location"
+                      id="location"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="Office location"
+                      value={formData.location}
                       onChange={handleChange}
                       required
                     />
                   </div>
                   <div>
                     <label
-                      htmlFor="brand"
+                      htmlFor="officeType"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Brand
+                      Office Type
                     </label>
                     <input
                       type="text"
-                      name="brand"
-                      id="brand"
+                      name="officeType"
+                      id="officeType"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Product brand"
-                      value={formData.brand}
+                      placeholder="Office type"
+                      value={formData.officeType}
                       onChange={handleChange}
-                      required
+                      
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="phoneNumber"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      name="phoneNumber"
+                      id="phoneNumber"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="Phone number"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      
                     />
                   </div>
                   <div>
@@ -135,45 +199,37 @@ const ProductModal = () => {
                       required
                     />
                   </div>
-                  <div>
+                  <div className="col-span-2">
                     <label
-                      htmlFor="category"
+                      htmlFor="officeImages"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Category
+                      Office Images
                     </label>
-                    <select
-                      id="category"
-                      name="category"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={formData.category}
-                      onChange={handleChange}
-                    >
-                      <option>Select category</option>
-                      <option value="TV">TV/Monitors</option>
-                      <option value="PC">PC</option>
-                      <option value="GA">Gaming/Console</option>
-                      <option value="PH">Phones</option>
-                    </select>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor="description"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Description
-                    </label>
-                    <textarea
-                      id="description"
-                      name="description"
-                      rows={4}
-                      className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Write product description here"
-                      value={formData.description}
-                      onChange={handleChange}
+                    <input
+                      type="file"
+                      name="officeImages"
+                      id="officeImages"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      multiple
+                      onChange={handleFileChange}
+                      
                     />
                   </div>
                 </div>
                 <button
                   type="submit"
-                  className="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm
+                  className="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                >
+                  Create Office
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AddOfficeModal;
