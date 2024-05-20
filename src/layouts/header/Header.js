@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Burger, RuFlag, UzbFlag } from "../../components/icon";
 import { Button } from "flowbite-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   const style = {
@@ -66,12 +66,12 @@ const Header = () => {
             >
               Ro'yxatdan o'tish
             </button>
-            <button
+            <Link to={'/admin'}
               type="button"
               class="text-white bg-blue-700 font-medium rounded-lg text-sm px-3 py-1  ms-2"
             >
               Kirish
-            </button>
+            </Link>
           </div>
 
           <button
