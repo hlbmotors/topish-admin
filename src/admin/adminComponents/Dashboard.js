@@ -31,7 +31,7 @@ function Dashboard() {
   const company = useGetCompanies()
 
   return (
-    <div className="p-4 lg:ml-64">
+    <div className="p-4 bg-white dark:bg-slate-700 lg:ml-64">
       <div className="rounded-lg dark:border-gray-700 mt-16">
         <div className="grid md:grid-cols-3 gap-4 mb-4">
           <div className="flex items-center justify-start p-4 rounded-xl bg-gray-50  dark:bg-gray-800">
