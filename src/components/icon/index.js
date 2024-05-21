@@ -131,3 +131,35 @@ export const Burger = () => {
   </svg></div>
   )
 }
+
+export const Arrow = () => {
+  return (
+    <div><svg
+    width="17.000000"
+    height="14.000000"
+    viewBox="0 0 17 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs />
+    <path
+      id="Stroke 1"
+      d="M15.75 6.22L0.75 6.22"
+      stroke="#25324B"
+      stroke-opacity="1.000000"
+      stroke-width="2.000000"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+    <path
+      id="Stroke 3"
+      d="M9.7 0.2L15.75 6.22L9.7 12.25"
+      stroke="#25324B"
+      stroke-opacity="1.000000"
+      stroke-width="2.000000"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </svg></div>
+  )
+}

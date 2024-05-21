@@ -19,6 +19,7 @@ module.exports = {
       colors: {
        
        "herobg":"#F8F8FD",
+       "jobsborder":"rgb(214,221,235)",
        "hero-title":"#26A4FF",
        "hero-decs":"#515B6F",
         'boxdark-2': '#1A222C',

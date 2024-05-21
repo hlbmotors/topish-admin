@@ -1,16 +1,9 @@
-import axios from "../api/api";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import { Link, Outlet } from "react-router-dom";
-import { useAuthContext } from "../hooks/useAuthContext";
 
 function Admin() {
-  const { dispatch } = useAuthContext();
-
-  const logOut = () => {
-    dispatch({ type: "LOGOUT" });
-    localStorage.setItem("user", null);
-  };
+ 
   return (
     <div className="admin">
       <Navbar />

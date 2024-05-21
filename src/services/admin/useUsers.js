@@ -3,7 +3,6 @@ import axios from "../../api/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useGetUsers = (page, limit) => {
-  console.log(page, "query");
   return useQuery({
     queryKey: ["users-get"],
     queryFn: async () =>

@@ -18,7 +18,7 @@ export const HeroBanner = () => {
               alt="name"
             />
            
-            <div className="bg-white absolute w-full max-w-203 p-2 rounded-lg shadow-md flex items-center space-x-2">
+            <div className="bg-white absolute w-full max-w-180 p-0 rounded-lg shadow-md flex items-center space-x-2">
               <div className="flex items-center  rounded-md px-3 py-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@ export const HeroBanner = () => {
               </div>
               <button
                 type="button"
-                className="bg-blue-600 cursor-pointer text-white px-4 py-2 rounded-md"
+                className="w-full max-w-45 bg-blue-600 cursor-pointer text-white px-4 py-2 rounded-md"
               >
                 Izlash
               </button>
